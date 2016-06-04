@@ -62,7 +62,7 @@ Hamurabi.onSubmit = function () {
     vm.rats(0);
     var tmp = randInt(1, 5);
     if (tmp % 2 == 0) {
-        vm.rats(vm.store() / tmp);
+        vm.rats(Math.floor(vm.store() / tmp));
     }
 
     vm.store(vm.store() + vm.total_harvest() - vm.rats());
@@ -73,10 +73,10 @@ Hamurabi.onSubmit = function () {
     // Horrors, a 15% chance of plague!
     vm.plague(Math.random() <= 0.15);
     if (vm.plague()) {
-        vm.population(vm.population() / 2);
+        vm.population(Math.floor(vm.population() / 2));
     }
 
-    vm.starved(Math.max(vm.population() - vm.in_food()/20, 0));
+    vm.starved(Math.max(vm.population() - Math.floor(vm.in_food()/20), 0));
     var starvation_threshold = vm.population()*0.45;
 
     vm.population(vm.population() + vm.born() - vm.starved());
