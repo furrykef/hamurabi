@@ -33,23 +33,22 @@
     <p>Resource allocation for next year:</p>
     <form data-bind="submit: Hamurabi.onSubmit">
         <label for="InBuyAcres">Acres of farmland</label><br>
+        <button data-bind="click: in_acres(in_acres()-1)">-</button>
         <input type="range" id="InAcres"
-               data-bind="textInput: in_acres"
+               data-bind="value: in_acres, valueUpdate: 'input'"
                min="0"
-               max="1500"
-               class="range">
-        <span data-bind="text: in_acres"></span> acres
+               max="1500">
+        <button data-bind="click: in_acres(in_acres()+1)">+</button>
+        <span data-bind="text: in_acres()"></span> acres
         (<span data-bind="text: Hamurabi.plus(acre_sales())"></span> bushels)<br>
         <br>
         <label for="InFood">Food</label><br>
-        <input type="range" id="InFood" step="20"
-               data-bind="textInput: in_food"
-               class="range"><br>
+        <input type="number" id="InFood" step="20"
+               data-bind="value: in_food"><br>
         <br>
         <label for="InSeeds">Acres to farm</label><br>
-        <input type="range" id="InSeeds"
-               data-bind="textInput: in_farmed"
-               class="range"><br>
+        <input type="number" id="InSeeds"
+               data-bind="value: in_farmed"><br>
         <br>
         <input type="submit" value="Make it so">
     </form>
