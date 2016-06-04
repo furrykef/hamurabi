@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Hamurabi</title>
+    <link rel="stylesheet" type="text/css" href="hamurabi.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+  </head>
+  <body>
+    <h1>Hamurabi</h1>
+    <p>
+      (This game is a work in progress. <strong>It is not fully functional yet.</strong>)
+    </p>
+    <p>Hamurabi, I beg to report that in year <span data-bind="text: year"></span>:</p>
+    <ul>
+      <li><span data-bind="text: born"></span> people came to the city</li>
+      <li><span data-bind="text: starved"></span> people died of starvation</li>
+      <li data-bind="visible: plague">A terrible plague killed half the city's population!</li>
+      <li><span data-bind="text: total_harvest"></span> bushels
+          were harvested from <span data-bind="text: farmed"></span> farms
+          (<span data-bind="text: harvest_per_acre"></span> per acre)</li>
+      <li><span data-bind="text: rats"></span> bushels were eaten by rats</li>
+    </ul>
+
+    <p>Now we have:</p>
+    <ul>
+      <li><span data-bind="text: population"></span> people</li>
+      <li><span data-bind="text: acres"></span> acres of farmland</li>
+      <li><span data-bind="text: store"></span> bushels of grain</li>
+    </ul>
+
+    <p>Land is trading for <span data-bind="text: acre_price"></span> bushels per acre.</p>
+
+    <p>Resource allocation for next year:</p>
+    <form data-bind="submit: Hamurabi.onSubmit">
+        <label for="InBuyAcres">Acres of farmland</label><br>
+        <input type="range" id="InAcres"
+               data-bind="textInput: in_acres"
+               min="0"
+               max="1500"
+               class="range">
+        <span data-bind="text: in_acres"></span> acres
+        (<span data-bind="text: Hamurabi.plus(acre_sales())"></span> bushels)<br>
+        <br>
+        <label for="InFood">Food</label><br>
+        <input type="range" id="InFood" step="20"
+               data-bind="textInput: in_food"
+               class="range"><br>
+        <br>
+        <label for="InSeeds">Acres to farm</label><br>
+        <input type="range" id="InSeeds"
+               data-bind="textInput: in_farmed"
+               class="range"><br>
+        <br>
+        <input type="submit" value="Make it so">
+    </form>
+    <script src="hamurabi.js" type="text/javascript"></script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+These are just the developer's notes to himself. Never you mind.
+
+
+http://www.moorecad.com/classicbasic/basic/creative/hamurabi.bas
+http://www.basicbook.org/GamesAmusements/hamurabi.kbs [serious errors; see below]
+
+
+Errors in hamurabi.kbs
+----------------------
+In the rat code, "end if" should precede "S=S-E+H", not follow it.
+
+I believe the test "IF Q=0" (just before "A HORRIBLE PLAGUE STRUCK!") should be "IF Q<0".
