@@ -10,10 +10,13 @@
     <p>
       (This game is a work in progress. <strong>It is not fully functional yet.</strong>)
     </p>
+
     <p>Hamurabi, I beg to report that in year <span data-bind="text: year"></span>:</p>
     <ul>
       <li><span data-bind="text: born"></span> people came to the city</li>
-      <li><span data-bind="text: starved"></span> people died of starvation</li>
+      <li><span data-bind="css: { alert: too_many_starved() }">
+        <span data-bind="text: starved"></span> people died of starvation
+      </span></li>
       <li data-bind="visible: plague">A terrible plague killed half the city's population!</li>
       <li><span data-bind="text: total_harvest"></span> bushels
           were harvested from <span data-bind="text: farmed"></span> farms
@@ -28,30 +31,50 @@
       <li><span data-bind="text: store"></span> bushels of grain</li>
     </ul>
 
-    <p>Land is trading for <span data-bind="text: acre_price"></span> bushels per acre.</p>
+    <p>Farmland is trading for <span data-bind="text: acre_price"></span> bushels per acre.</p>
 
-    <p>Resource allocation for next year:</p>
-    <form data-bind="submit: Hamurabi.onSubmit">
-        <label for="InBuyAcres">Acres of farmland</label><br>
-        <button data-bind="click: in_acres(in_acres()-1)">-</button>
-        <input type="range" id="InAcres"
-               data-bind="value: in_acres, valueUpdate: 'input'"
-               min="0"
-               max="1500">
-        <button data-bind="click: in_acres(in_acres()+1)">+</button>
-        <span data-bind="text: in_acres()"></span> acres
-        (<span data-bind="text: Hamurabi.plus(acre_sales())"></span> bushels)<br>
-        <br>
-        <label for="InFood">Food</label><br>
-        <input type="number" id="InFood" step="20"
-               data-bind="value: in_food"><br>
-        <br>
-        <label for="InSeeds">Acres to farm</label><br>
-        <input type="number" id="InSeeds"
-               data-bind="value: in_farmed"><br>
-        <br>
-        <input type="submit" value="Make it so">
-    </form>
+    <div data-bind="visible: status() == 'ingame'">
+      <p>Resource allocation for next year:</p>
+      <form data-bind="submit: Hamurabi.onSubmit">
+          <label for="InAcres">Total farmland (adjust to buy or sell)</label><br>
+          <button data-bind="click: in_acres(in_acres()-1)">-</button>
+          <input type="range" id="InAcres"
+                 data-bind="value: in_acres, valueUpdate: 'input'"
+                 min="0"
+                 max="1500">
+          <button data-bind="click: in_acres(in_acres()+1)">+</button>
+          <span data-bind="text: in_acres()"></span> acres
+          (<span data-bind="text: Hamurabi.plus(acre_sales())"></span> bushels)<br>
+          <br>
+          <label for="InFood">Food</label><br>
+          <button data-bind="click: in_food(in_food()-20)">-</button>
+          <input type="range" id="InFood" step="20"
+                 data-bind="value: in_food, valueUpdate: 'input'"
+                 min="0"
+                 max="3000">
+          <button data-bind="click: in_food(in_food()+20)">+</button>
+          <span data-bind="text: in_food"></span> bushels<br>
+          <br>
+          <label for="InAcresToFarm">Acres to farm</label><br>
+          <button data-bind="click: in_farmed(in_farmed()-1)">-</button>
+          <input type="range" id="InAcresToFarm"
+                 data-bind="value: in_farmed, valueUpdate: 'input'"
+                 min="0"
+                 max="1500">
+          <button data-bind="click: in_farmed(in_farmed()+1)">+</button>
+          <span data-bind="text: in_farmed"></span> acres<br>
+          <br>
+          <input type="submit" value="Make it so">
+      </form>
+    </div>
+
+    <div data-bind="visible: status() == 'end0'">
+      <p>You are a fink!</p>
+    </div>
+
+    <div data-bind="visible: status() != 'ingame'">
+      <button onclick="Hamurabi.newGame()">New game</button>
+    </div>
     <script src="hamurabi.js" type="text/javascript"></script>
   </body>
 </html>

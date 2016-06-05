@@ -2,28 +2,53 @@ Hamurabi = {};
 (function () {
 "use strict";
 
-// view model
+// Based on sample code at http://knockoutjs.com/documentation/extenders.html
+// This seems clunky. Is there a better way?
+ko.extenders.integer = function (target) {
+    var result = ko.pureComputed({
+        read: target,
+        write: function (new_value) {
+            new_value = Math.floor(new_value);
+            if (new_value !== target()) {
+                target(new_value);
+            }
+        }
+    });
+
+    result(target());
+
+    return result;
+};
+
 function ViewModel() {
-    this.year = ko.observable(0),
-    this.born = ko.observable(0),
-    this.starved = ko.observable(0),
-    this.plague = ko.observable(false),
-    this.farmed = ko.observable(0),
-    this.harvest_per_acre = ko.observable(0),
-    this.rats = ko.observable(0),
-    this.store = ko.observable(0),
-    this.population = ko.observable(0),
-    this.acres = ko.observable(0),
-    this.acre_price = ko.observable(0),
-    this.in_acres = ko.observable(0),
-    this.in_food = ko.observable(0),
-    this.in_farmed = ko.observable(0),
-    this.total_harvest = ko.computed(function () {
-        return this.harvest_per_acre() * this.acres();
-    }, this),
-    this.acre_sales = ko.computed(function () {
-        return (this.acres() - this.in_acres()) * this.acre_price();
-    }, this)
+    var self = this;
+    self.year = ko.observable(0),
+    self.born = ko.observable(0),
+    self.starved = ko.observable(0),
+    self.plague = ko.observable(false),
+    self.farmed = ko.observable(0),
+    self.harvest_per_acre = ko.observable(0),
+    self.rats = ko.observable(0),
+    self.store = ko.observable(0),
+    self.population = ko.observable(0),
+    self.acres = ko.observable(0),
+    self.acre_price = ko.observable(0),
+    self.in_acres = ko.observable(0).extend({integer: null}),
+    self.in_food = ko.observable(0).extend({integer: null}),
+    self.in_farmed = ko.observable(0).extend({integer: null}),
+    self.total_harvest = ko.computed(function () {
+        return self.harvest_per_acre() * self.acres();
+    }),
+    self.acre_sales = ko.computed(function () {
+        return (self.acres() - self.in_acres()) * self.acre_price();
+    }),
+    self.too_many_starved = ko.observable(false),
+    // 'ingame' for in-game
+    // 'end0' for bad ending
+    // 'end1' for less bad ending
+    // 'end2' for OK ending
+    // 'end3' for good ending
+    self.status = ko.observable('')
 }
 
 var vm = new ViewModel();
@@ -43,6 +68,8 @@ Hamurabi.newGame = function () {
     vm.in_acres(1000);
     vm.in_food(2000);
     vm.in_farmed(0);
+    vm.too_many_starved(false);
+    vm.status('ingame');
 };
 
 // Input is assumed to be valid
@@ -83,17 +110,14 @@ Hamurabi.onSubmit = function () {
 
     // Starved enough for impeachment?
     if (vm.starved() > starvation_threshold) {
-        endGameStarvation();
+        vm.too_many_starved(true);
+        vm.status('end0');
     }
 };
 
 Hamurabi.plus = function (num) {
     return ((num < 0) ? '' : '+') + num
 };
-
-function endGameStarvation() {
-    alert("Too many citizens starved! Game over.");
-}
 
 // range is inclusive
 function randInt(low, high) {
