@@ -68,9 +68,38 @@
       </form>
     </div>
 
-    <div data-bind="visible: status() == 'end0'">
-      <p>You are a fink!</p>
-    </div>
+    <p data-bind="visible: status() != 'ingame' && !too_many_starved()">
+      In your 10-year term of office,
+      <span data-bind="text: total_starved()"></span>
+      died of starvation, an average of
+      <span data-bind="text: avg_starved_pct().toFixed(2)"></span>%
+      per year. You started with 10 acres per person and ended with
+      <span data-bind="text: acres_per_person().toFixed(2)"></span>
+      acres per person.
+    </p>
+
+    <p data-bind="visible: status() == 'end0'">
+      Due to your extreme mismanagement, you have not only been
+      impeached and thrown out of office, but you have also been
+      declared National Fink!
+    </p>
+
+    <p data-bind="visible: status() == 'end1'">
+      Your heavy-handed performance smacks of Nero and Ivan IV. The
+      people (remaining) find you an unpleasant ruler and, frankly,
+      hate your guts!
+    </p>
+
+    <p data-bind="visible: status() == 'end2'">
+      Your performance could have been somewhat better, but really
+      wasn't too bad at all. A few people would dearly like to see
+      you assassinated, but we all have our trivial problems...
+    </p>
+
+    <p data-bind="visible: status() == 'end3'">
+      A fantastic performance! Charlemagne, Disraeli, and Jefferson
+      combined could not have done better!
+    </p>
 
     <div data-bind="visible: status() != 'ingame'">
       <button onclick="Hamurabi.newGame()">New game</button>

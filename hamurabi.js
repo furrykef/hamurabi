@@ -22,33 +22,38 @@ ko.extenders.integer = function (target) {
 
 function ViewModel() {
     var self = this;
-    self.year = ko.observable(0),
-    self.born = ko.observable(0),
-    self.starved = ko.observable(0),
-    self.plague = ko.observable(false),
-    self.farmed = ko.observable(0),
-    self.harvest_per_acre = ko.observable(0),
-    self.rats = ko.observable(0),
-    self.store = ko.observable(0),
-    self.population = ko.observable(0),
-    self.acres = ko.observable(0),
-    self.acre_price = ko.observable(0),
-    self.in_acres = ko.observable(0).extend({integer: null}),
-    self.in_food = ko.observable(0).extend({integer: null}),
-    self.in_farmed = ko.observable(0).extend({integer: null}),
+    self.year = ko.observable(0);
+    self.born = ko.observable(0);
+    self.starved = ko.observable(0);
+    self.total_starved = ko.observable(0);
+    self.too_many_starved = ko.observable(false);
+    self.avg_starved_pct = ko.observable(0);
+    self.plague = ko.observable(false);
+    self.farmed = ko.observable(0);
+    self.harvest_per_acre = ko.observable(0);
+    self.rats = ko.observable(0);
+    self.store = ko.observable(0);
+    self.population = ko.observable(0);
+    self.acres = ko.observable(0);
+    self.acres_per_person = ko.computed(function () {
+        return self.acres() / self.population();
+    });
+    self.acre_price = ko.observable(0);
+    self.in_acres = ko.observable(0).extend({integer: null});
+    self.in_food = ko.observable(0).extend({integer: null});
+    self.in_farmed = ko.observable(0).extend({integer: null});
     self.total_harvest = ko.computed(function () {
         return self.harvest_per_acre() * self.acres();
-    }),
+    });
     self.acre_sales = ko.computed(function () {
         return (self.acres() - self.in_acres()) * self.acre_price();
-    }),
-    self.too_many_starved = ko.observable(false),
+    });
     // 'ingame' for in-game
     // 'end0' for bad ending
     // 'end1' for less bad ending
     // 'end2' for OK ending
     // 'end3' for good ending
-    self.status = ko.observable('')
+    self.status = ko.observable('');
 }
 
 var vm = new ViewModel();
@@ -57,6 +62,8 @@ Hamurabi.newGame = function () {
     vm.year(0);
     vm.born(5);
     vm.starved(0);
+    vm.total_starved(0);
+    vm.avg_starved_pct(0);
     vm.plague(false);
     vm.farmed(950);
     vm.harvest_per_acre(3);
@@ -105,6 +112,11 @@ Hamurabi.onSubmit = function () {
 
     vm.starved(Math.max(vm.population() - Math.floor(vm.in_food()/20), 0));
     var starvation_threshold = vm.population()*0.45;
+    vm.total_starved(vm.total_starved() + vm.starved());
+
+    // Note this average assumes the full ten years (hence dividing by 10)
+    // The percentage won't be displayed until the end of the game
+    vm.avg_starved_pct(vm.avg_starved_pct() + vm.starved()/vm.population()*100/10);
 
     vm.population(vm.population() + vm.born() - vm.starved());
 
@@ -112,6 +124,17 @@ Hamurabi.onSubmit = function () {
     if (vm.starved() > starvation_threshold) {
         vm.too_many_starved(true);
         vm.status('end0');
+    } else if (vm.year() == 10) {
+        // Game's over. Let's tell the player how he did
+        if (vm.avg_starved_pct() > 33 || vm.acres_per_person() < 7) {
+            vm.status('end0');
+        } else if (vm.avg_starved_pct() > 10 || vm.acres_per_person() < 9) {
+            vm.status('end1');
+        } else if (vm.avg_starved_pct() > 3 || vm.acres_per_person() < 10) {
+            vm.status('end2');
+        } else {
+            vm.status('end3');
+        }
     }
 };
 
