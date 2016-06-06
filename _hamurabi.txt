@@ -7,7 +7,7 @@ http://www.basicbook.org/GamesAmusements/hamurabi.kbs [serious errors; see below
 
 Bugs
 ----
-The +/- buttons next to the slider do not respect the max range of the input.
+sliders are in wrong position on page load
 
 
 Errors in hamurabi.kbs

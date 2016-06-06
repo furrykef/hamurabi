@@ -5,17 +5,19 @@ Hamurabi = {};
 ko.components.register('myslider', {
     viewModel: function(params) {
         this.v = params.v;
+        this.max = params.max;
         this.step = params.step;
     },
     template:
+        // function wrappers necessary for click handlers
+        // otherwise they will fire on page load
         '<button data-bind="click: function () { v(Math.max(v() - step, 0)) }">-</button>\
          <input type="range"\
                 data-bind="value: v,\
                            valueUpdate: \'input\',\
-                           attr: {step: step}"\
-                min="0"\
-                max="3000">\
-         <button data-bind="click: function () { v(v() + step) }">+</button>'
+                           attr: {step: step, max: max}"\
+                min="0">\
+         <button data-bind="click: function () { v(Math.min(v() + step, max())) }">+</button>'
 });
 
 // Based on sample code at http://knockoutjs.com/documentation/extenders.html
@@ -56,8 +58,13 @@ function ViewModel() {
     });
     self.acre_price = ko.observable(0);
     self.in_acres = ko.observable(0).extend({integer: null});
+    self.in_acres_max = ko.observable(2000);    // won't change
     self.in_food = ko.observable(0).extend({integer: null});
+    self.in_food_max = ko.computed(function () {
+        return self.population() * 20;
+    });
     self.in_farmed = ko.observable(0).extend({integer: null});
+    self.in_farmed_max = self.in_acres;
     self.total_harvest = ko.computed(function () {
         return self.harvest_per_acre() * self.farmed();
     });

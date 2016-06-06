@@ -37,16 +37,16 @@
       <h2>Resource allocation for next year</h2>
       <form data-bind="submit: Hamurabi.onSubmit">
           <label>Total farmland (adjust to buy or sell)</label><br>
-          <myslider params="v: in_acres, step: 1"></myslider>
+          <myslider params="v: in_acres, max: in_acres_max, step: 1"></myslider>
           <span data-bind="text: in_acres()"></span> acres
           (<span data-bind="text: Hamurabi.plus(acre_sales())"></span> bushels)<br>
           <br>
           <label>Food</label><br>
-          <myslider params="v: in_food, step: 20"></myslider>
+          <myslider params="v: in_food, max: in_food_max, step: 20"></myslider>
           <span data-bind="text: in_food"></span> bushels<br>
           <br>
           <label>Acres to farm</label><br>
-          <myslider params="v: in_farmed, step: 1"></myslider>
+          <myslider params="v: in_farmed, max: in_farmed_max, step: 1"></myslider>
           <span data-bind="text: in_farmed"></span> acres<br>
           <br>
           <input type="submit" value="Make it so">
