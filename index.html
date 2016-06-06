@@ -34,34 +34,19 @@
     <p>Farmland is trading at <span data-bind="text: acre_price"></span> bushels per acre.</p>
 
     <div data-bind="visible: status() == 'ingame'">
-      <p>Resource allocation for next year:</p>
+      <h2>Resource allocation for next year</h2>
       <form data-bind="submit: Hamurabi.onSubmit">
-          <label for="InAcres">Total farmland (adjust to buy or sell)</label><br>
-          <button data-bind="click: in_acres(in_acres()-1)">-</button>
-          <input type="range" id="InAcres"
-                 data-bind="value: in_acres, valueUpdate: 'input'"
-                 min="0"
-                 max="1500">
-          <button data-bind="click: in_acres(in_acres()+1)">+</button>
+          <label>Total farmland (adjust to buy or sell)</label><br>
+          <myslider params="v: in_acres, step: 1"></myslider>
           <span data-bind="text: in_acres()"></span> acres
           (<span data-bind="text: Hamurabi.plus(acre_sales())"></span> bushels)<br>
           <br>
-          <label for="InFood">Food</label><br>
-          <button data-bind="click: in_food(in_food()-20)">-</button>
-          <input type="range" id="InFood" step="20"
-                 data-bind="value: in_food, valueUpdate: 'input'"
-                 min="0"
-                 max="3000">
-          <button data-bind="click: in_food(in_food()+20)">+</button>
+          <label>Food</label><br>
+          <myslider params="v: in_food, step: 20"></myslider>
           <span data-bind="text: in_food"></span> bushels<br>
           <br>
-          <label for="InAcresToFarm">Acres to farm</label><br>
-          <button data-bind="click: in_farmed(in_farmed()-1)">-</button>
-          <input type="range" id="InAcresToFarm"
-                 data-bind="value: in_farmed, valueUpdate: 'input'"
-                 min="0"
-                 max="1500">
-          <button data-bind="click: in_farmed(in_farmed()+1)">+</button>
+          <label>Acres to farm</label><br>
+          <myslider params="v: in_farmed, step: 1"></myslider>
           <span data-bind="text: in_farmed"></span> acres<br>
           <br>
           <input type="submit" value="Make it so">
