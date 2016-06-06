@@ -8,14 +8,14 @@ ko.components.register('myslider', {
         this.step = params.step;
     },
     template:
-        '<button data-bind="click: v(Math.max(v() - step, 0))">-</button>\
+        '<button data-bind="click: function () { v(Math.max(v() - step, 0)) }">-</button>\
          <input type="range"\
                 data-bind="value: v,\
                            valueUpdate: \'input\',\
                            attr: {step: step}"\
                 min="0"\
                 max="3000">\
-         <button data-bind="click: v(v() + step)">+</button>'
+         <button data-bind="click: function () { v(v() + step) }">+</button>'
 });
 
 // Based on sample code at http://knockoutjs.com/documentation/extenders.html
