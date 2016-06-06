@@ -26,8 +26,8 @@ function ViewModel() {
     self.born = ko.observable(0);
     self.starved = ko.observable(0);
     self.total_starved = ko.observable(0);
-    self.too_many_starved = ko.observable(false);
     self.avg_starved_pct = ko.observable(0);
+    self.too_many_starved = ko.observable(false);
     self.plague = ko.observable(false);
     self.farmed = ko.observable(0);
     self.harvest_per_acre = ko.observable(0);
@@ -64,6 +64,7 @@ Hamurabi.newGame = function () {
     vm.starved(0);
     vm.total_starved(0);
     vm.avg_starved_pct(0);
+    vm.too_many_starved(false);
     vm.plague(false);
     vm.farmed(950);
     vm.harvest_per_acre(3);
@@ -75,7 +76,6 @@ Hamurabi.newGame = function () {
     vm.in_acres(1000);
     vm.in_food(2000);
     vm.in_farmed(0);
-    vm.too_many_starved(false);
     vm.status('ingame');
 };
 

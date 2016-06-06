@@ -21,7 +21,7 @@
       <li><span data-bind="text: total_harvest"></span> bushels
           were harvested from <span data-bind="text: farmed"></span> farms
           (<span data-bind="text: harvest_per_acre"></span> per acre)</li>
-      <li><span data-bind="text: rats"></span> bushels were eaten by rats</li>
+      <li data-bind="visible: rats() > 0"><span data-bind="text: rats"></span> bushels were eaten by rats</li>
     </ul>
 
     <p>Now we have:</p>
