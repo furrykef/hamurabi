@@ -7,9 +7,7 @@ http://www.basicbook.org/GamesAmusements/hamurabi.kbs [serious errors; see below
 
 Bugs
 ----
-The +/- buttons next to the slider do not respect the min/max range of the input.
-
-Should plagues be calculated before or after starvation? Currently done before, so feeding no citizens in a plague year will report only half of the citizenry died of starvation.
+The +/- buttons next to the slider do not respect the max range of the input.
 
 
 Errors in hamurabi.kbs

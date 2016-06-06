@@ -14,11 +14,11 @@
     <p>Hamurabi, I beg to report that in year <span data-bind="text: year"></span>:</p>
     <ul>
       <li><span data-bind="text: born"></span> people came to the city</li>
-      <li><span data-bind="css: { alert: too_many_starved() }">
+      <li data-bind="visible: starved() > 0"><span data-bind="css: { alert: too_many_starved() }">
         <span data-bind="text: starved"></span> people died of starvation
       </span></li>
       <li data-bind="visible: plague">A terrible plague killed half the city's population!</li>
-      <li><span data-bind="text: total_harvest"></span> bushels
+      <li data-bind="visible: total_harvest() > 0"><span data-bind="text: total_harvest"></span> bushels
           were harvested from <span data-bind="text: farmed"></span> farms
           (<span data-bind="text: harvest_per_acre"></span> per acre)</li>
       <li data-bind="visible: rats() > 0"><span data-bind="text: rats"></span> bushels were eaten by rats</li>

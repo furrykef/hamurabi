@@ -59,7 +59,7 @@ function ViewModel() {
     self.in_food = ko.observable(0).extend({integer: null});
     self.in_farmed = ko.observable(0).extend({integer: null});
     self.total_harvest = ko.computed(function () {
-        return self.harvest_per_acre() * self.acres();
+        return self.harvest_per_acre() * self.farmed();
     });
     self.acre_sales = ko.computed(function () {
         return (self.acres() - self.in_acres()) * self.acre_price();
@@ -122,9 +122,6 @@ Hamurabi.onSubmit = function () {
 
     // Horrors, a 15% chance of plague!
     vm.plague(Math.random() <= 0.15);
-    if (vm.plague()) {
-        vm.population(Math.floor(vm.population() / 2));
-    }
 
     vm.starved(Math.max(vm.population() - Math.floor(vm.in_food()/20), 0));
     var starvation_threshold = vm.population()*0.45;
@@ -134,6 +131,9 @@ Hamurabi.onSubmit = function () {
     vm.avg_starved_pct(((vm.year() - 1)*vm.avg_starved_pct() + starved_pct)/vm.year());
 
     vm.population(vm.population() + vm.born() - vm.starved());
+    if (vm.plague()) {
+        vm.population(Math.floor(vm.population() / 2));
+    }
 
     // Starved enough for impeachment?
     if (vm.starved() > starvation_threshold) {
