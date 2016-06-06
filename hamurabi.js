@@ -114,9 +114,8 @@ Hamurabi.onSubmit = function () {
     var starvation_threshold = vm.population()*0.45;
     vm.total_starved(vm.total_starved() + vm.starved());
 
-    // Note this average assumes the full ten years (hence dividing by 10)
-    // The percentage won't be displayed until the end of the game
-    vm.avg_starved_pct(vm.avg_starved_pct() + vm.starved()/vm.population()*100/10);
+    var starved_pct = vm.starved()/vm.population()*100;
+    vm.avg_starved_pct(((vm.year() - 1)*vm.avg_starved_pct() + starved_pct)/vm.year());
 
     vm.population(vm.population() + vm.born() - vm.starved());
 
