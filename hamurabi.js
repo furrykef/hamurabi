@@ -2,6 +2,22 @@ Hamurabi = {};
 (function () {
 "use strict";
 
+
+ko.bindingHandlers.slider = {
+    init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+        noUiSlider.create(element, {
+            start: 0,
+            connect: 'lower',
+            range: {
+                min: 0,
+                max: 3000
+            }
+        });
+    },
+    update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+    }
+};
+
 ko.components.register('myslider', {
     viewModel: function(params) {
         this.v = params.v;
@@ -12,11 +28,14 @@ ko.components.register('myslider', {
         // function wrappers necessary for click handlers
         // otherwise they will fire on page load
         '<button data-bind="click: function () { v(Math.max(v() - step, 0)) }">-</button>\
-         <input type="range"\
-                data-bind="value: v,\
-                           valueUpdate: \'input\',\
-                           attr: {step: step, max: max}"\
-                min="0">\
+         <div class="slider"\
+              data-bind="slider: v,\
+                         sliderOptions: {\
+                            min: 0,\
+                            max: max,\
+                            range: 0,\
+                            step: step\
+                         }"></div>\
          <button data-bind="click: function () { v(Math.min(v() + step, max())) }">+</button>'
 });
 

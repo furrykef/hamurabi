@@ -1,3 +1,10 @@
+.slider {
+    width: 400px;
+    margin: 0 16px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .alert {
     font-size: 120%;
     font-weight: bold;
