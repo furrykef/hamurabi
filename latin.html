@@ -17,23 +17,23 @@
     <ul>
       <li><span data-bind="text: born"></span> homines ad urbem venisse</li>
       <li data-bind="visible: starved() > 0"><span data-bind="css: { alert: too_many_starved() }">
-        <span data-bind="text: starved"></span> inopia frumenti perisse
+        <span data-bind="text: starved"></span> inopia cibi perisse
       </span></li>
       <li data-bind="visible: plague">Pestem horribilem dimidium populi necavisse</li>
-      <li data-bind="visible: total_harvest() > 0"><span data-bind="text: total_harvest"></span> libras
-          a <span data-bind="text: farmed"></span> agris collectas esse
+      <li data-bind="visible: total_harvest() > 0"><span data-bind="text: total_harvest"></span> corbes
+          a <span data-bind="text: farmed"></span> agris collectos esse
           (<span data-bind="text: harvest_per_acre"></span> per agrum)</li>
-      <li data-bind="visible: rats() > 0"><span data-bind="text: rats"></span> libras a rattis consumptas esse</li>
+      <li data-bind="visible: rats() > 0"><span data-bind="text: rats"></span> corbes a rattis consumptos esse</li>
     </ul>
 
     <p>Nunc habemus:</p>
     <ul>
       <li><span data-bind="text: population"></span> homines</li>
       <li><span data-bind="text: acres"></span> agros</li>
-      <li><span data-bind="text: store"></span> libras frumenti</li>
+      <li><span data-bind="text: store"></span> corbes frumenti</li>
     </ul>
 
-    <p>Pretium unius agri est <span data-bind="text: acre_price"></span> libris frumenti.</p>
+    <p>Pretium unius agri est <span data-bind="text: acre_price"></span> corbes.</p>
 
     <div data-bind="visible: status() == 'ingame'">
       <h2>Assignatio rerum ad annum qui sequitur</h2>
@@ -41,11 +41,11 @@
           <label>Summa agrorum (muta ut agros emas aut vendas)</label><br>
           <myslider params="v: in_acres, max: in_acres_max, step: 1"></myslider>
           <span data-bind="text: in_acres()"></span> agri
-          (<span data-bind="text: Hamurabi.plus(acre_sales())"></span> librae)<br>
+          (<span data-bind="text: Hamurabi.plus(acre_sales())"></span> corbes)<br>
           <br>
           <label>Cibus</label><br>
           <myslider params="v: in_food, max: in_food_max, step: 20"></myslider>
-          <span data-bind="text: in_food"></span> librae<br>
+          <span data-bind="text: in_food"></span> corbes<br>
           <br>
           <label>Agri colendi</label><br>
           <myslider params="v: in_farmed, max: in_farmed_max, step: 1"></myslider>
@@ -55,9 +55,9 @@
       </form>
       <p>
         <span data-bind="css: { alert: in_store() < 0 }">
-          <span data-bind="text: in_store"></span> librae
+          <span data-bind="text: in_store"></span> corbes
         </span>
-        frumenti servabuntur
+        servabuntur
       </p>
     </div>
 
