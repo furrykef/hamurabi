@@ -7,6 +7,7 @@ http://www.basicbook.org/GamesAmusements/hamurabi.kbs [serious errors; see below
 
 Bugs
 ----
+Are rats eating more than they should?
 
 
 Errors in hamurabi.kbs

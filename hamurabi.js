@@ -106,12 +106,17 @@ function ViewModel() {
         return self.population() * 20;
     });
     self.in_farmed = ko.observable(0).extend({integer: null});
-    self.in_farmed_max = self.in_acres;
+    self.in_farmed_max = ko.computed(function () {
+        return Math.min(self.in_acres(), 10*self.population());
+    });
     self.total_harvest = ko.computed(function () {
         return self.harvest_per_acre() * self.farmed();
     });
     self.acre_sales = ko.computed(function () {
         return (self.acres() - self.in_acres()) * self.acre_price();
+    });
+    self.in_store = ko.computed(function () {
+        return self.store() + self.acre_sales() - self.in_food() - self.in_farmed();
     });
     // 'ingame' for in-game
     // 'end0' for bad ending
@@ -144,13 +149,16 @@ Hamurabi.newGame = function () {
     vm.status('ingame');
 };
 
-// Input is assumed to be valid
 Hamurabi.onSubmit = function () {
-    vm.year(vm.year() + 1);
-    vm.farmed(vm.in_farmed());
+    if (vm.in_store() < 0) {
+        alert("Think again. Your store balance must be positive.");
+        return;
+    }
 
+    vm.year(vm.year() + 1);
+    vm.store(vm.in_store());                // must be done before adjusting # of acres!
     vm.acres(vm.in_acres());
-    vm.store(vm.store() + vm.acre_sales());
+    vm.farmed(vm.in_farmed());
 
     vm.acre_price(randInt(17, 26));
 

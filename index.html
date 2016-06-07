@@ -10,7 +10,7 @@
   <body>
     <h1>Hamurabi</h1>
     <p>
-      (This game is a work in progress. <strong>It is not fully functional yet.</strong>)
+      (This game is in alpha. Weird things may happen.)
     </p>
 
     <p>Hamurabi, I beg to report that in year <span data-bind="text: year"></span>:</p>
@@ -53,6 +53,12 @@
           <br>
           <input type="submit" value="Make it so">
       </form>
+      <p>
+        Store:
+        <span data-bind="css: { alert: in_store() < 0 }">
+          <span data-bind="text: in_store"></span> bushels
+        </span>
+      </p>
     </div>
 
     <p data-bind="visible: status() != 'ingame' && !too_many_starved()">
