@@ -6,7 +6,7 @@ Hamurabi = {};
 ko.bindingHandlers.slider = {
     init: function(element, valueAccessor, allBindings) {
         noUiSlider.create(element, {
-            start: 0,
+            start: ko.unwrap(valueAccessor()),
             connect: 'lower',
             range: {
                 min: 0,
@@ -15,11 +15,31 @@ ko.bindingHandlers.slider = {
             animate: false
         });
         element.noUiSlider.on('update', function () {
-            var value = valueAccessor()(element.noUiSlider.get());
+            valueAccessor()(element.noUiSlider.get());
         });
     },
     update: function(element, valueAccessor, allBindings) {
-        element.noUiSlider.set(ko.unwrap(valueAccessor()));
+        var value = valueAccessor();
+
+        // we have to jump through some hoops here for when max is zero because
+        // noUiSlider doesn't allow min to equal max
+        var options = allBindings().sliderOptions;
+        var max = ko.unwrap(options.max);
+        var step = ko.unwrap(options.step);
+        element.noUiSlider.updateOptions({
+            range: {
+                min: 0,
+                max: Math.max(max, 1)
+            },
+            step: step
+        });
+        if (max === 0) {
+            element.setAttribute('disabled', true);
+            value(0);
+        } else {
+            element.removeAttribute('disabled');
+        }
+        element.noUiSlider.set(ko.unwrap(value));
     }
 };
 
@@ -36,9 +56,7 @@ ko.components.register('myslider', {
          <div class="slider"\
               data-bind="slider: v,\
                          sliderOptions: {\
-                            min: 0,\
                             max: max,\
-                            range: 0,\
                             step: step\
                          }"></div>\
          <button data-bind="click: function () { v(Math.min(v() + step, max())) }">+</button>'
@@ -142,7 +160,7 @@ Hamurabi.onSubmit = function () {
     // Rats are running wild! (Maybe.)
     vm.rats(0);
     var tmp = randInt(1, 5);
-    if (tmp % 2 == 0) {
+    if (tmp % 2 === 0) {
         vm.rats(Math.floor(vm.store() / tmp));
     }
 
@@ -170,7 +188,7 @@ Hamurabi.onSubmit = function () {
     if (vm.starved() > starvation_threshold) {
         vm.too_many_starved(true);
         vm.status('end0');
-    } else if (vm.year() == 10) {
+    } else if (vm.year() === 10) {
         // Game's over. Let's tell the player how he did
         if (vm.avg_starved_pct() > 33 || vm.acres_per_person() < 7) {
             vm.status('end0');
