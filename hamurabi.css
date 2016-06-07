@@ -1,5 +1,14 @@
+h1 {
+    text-align: center;
+}
+
+#content {
+    max-width: 50em;
+    margin: 0 auto;
+}
+
 .slider {
-    width: 400px;
+    width: 80%;
     margin: 0 16px;
     display: inline-block;
     vertical-align: middle;
