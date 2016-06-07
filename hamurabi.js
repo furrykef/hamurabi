@@ -4,17 +4,22 @@ Hamurabi = {};
 
 
 ko.bindingHandlers.slider = {
-    init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+    init: function(element, valueAccessor, allBindings) {
         noUiSlider.create(element, {
             start: 0,
             connect: 'lower',
             range: {
                 min: 0,
                 max: 3000
-            }
+            },
+            animate: false
+        });
+        element.noUiSlider.on('update', function () {
+            var value = valueAccessor()(element.noUiSlider.get());
         });
     },
-    update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+    update: function(element, valueAccessor, allBindings) {
+        element.noUiSlider.set(ko.unwrap(valueAccessor()));
     }
 };
 
