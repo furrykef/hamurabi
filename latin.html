@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Hamurabi</title>
+    <link rel="stylesheet" type="text/css" href="hamurabi.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.5.1/nouislider.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.5.1/nouislider.min.js"></script>
+  </head>
+  <body>
+    <h1>Hamurabi</h1>
+    <p>
+      (Hic ludus alpha versio est. Mirae res fieri possunt.)
+    </p>
+
+    <p>O Romule Maxime, rogo ut de anno <span data-bind="text: year"></span> liceat nuntiare:</p>
+    <ul>
+      <li><span data-bind="text: born"></span> homines ad urbem venisse</li>
+      <li data-bind="visible: starved() > 0"><span data-bind="css: { alert: too_many_starved() }">
+        <span data-bind="text: starved"></span> inopia frumenti perisse
+      </span></li>
+      <li data-bind="visible: plague">Pestem horribilem dimidium populi necavisse</li>
+      <li data-bind="visible: total_harvest() > 0"><span data-bind="text: total_harvest"></span> libras
+          a <span data-bind="text: farmed"></span> agris collectas esse
+          (<span data-bind="text: harvest_per_acre"></span> per agrum)</li>
+      <li data-bind="visible: rats() > 0"><span data-bind="text: rats"></span> libras a rattis consumptas esse</li>
+    </ul>
+
+    <p>Nunc habemus:</p>
+    <ul>
+      <li><span data-bind="text: population"></span> homines</li>
+      <li><span data-bind="text: acres"></span> agros</li>
+      <li><span data-bind="text: store"></span> libras frumenti</li>
+    </ul>
+
+    <p>Pretium unius agri est <span data-bind="text: acre_price"></span> libris frumenti.</p>
+
+    <div data-bind="visible: status() == 'ingame'">
+      <h2>Assignatio rerum ad annum qui sequitur</h2>
+      <form data-bind="submit: Hamurabi.onSubmit">
+          <label>Summa agrorum (muta ut agros emas aut vendas)</label><br>
+          <myslider params="v: in_acres, max: in_acres_max, step: 1"></myslider>
+          <span data-bind="text: in_acres()"></span> agri
+          (<span data-bind="text: Hamurabi.plus(acre_sales())"></span> librae)<br>
+          <br>
+          <label>Cibus</label><br>
+          <myslider params="v: in_food, max: in_food_max, step: 20"></myslider>
+          <span data-bind="text: in_food"></span> librae<br>
+          <br>
+          <label>Agri colendi</label><br>
+          <myslider params="v: in_farmed, max: in_farmed_max, step: 1"></myslider>
+          <span data-bind="text: in_farmed"></span> agri<br>
+          <br>
+          <input type="submit" value="Mos geratur" data-bind="attr: { disabled: in_store() < 0 }">
+      </form>
+      <p>
+        <span data-bind="css: { alert: in_store() < 0 }">
+          <span data-bind="text: in_store"></span> librae
+        </span>
+        frumenti servabuntur
+      </p>
+    </div>
+
+    <p data-bind="visible: status() != 'ingame' && !too_many_starved()">
+      Regno tuo 10 annorum,
+      <span data-bind="text: total_starved()"></span>
+      homines inopia cibi mortui sunt
+      (<span data-bind="text: avg_starved_pct().toFixed(2)"></span>%
+      per annum). Initio 10 agros per hominem habebamus et postremo
+      <span data-bind="text: acres_per_person().toFixed(2)"></span>
+      habemus.
+    </p>
+
+    <p data-bind="visible: status() == 'end0'">
+      Populus mala administratione defessus non solum te ex officio
+      revocavit sed etiam te Asinum Gentis nominavit!
+    </p>
+
+    <p data-bind="visible: status() == 'end1'">
+      Durum regnum tuum Neronem vel tzar Ioannem IV sapit. Populus
+      (reliquus) te pessimum tyrannum esse arbitratur atque perodit!
+    </p>
+
+    <p data-bind="visible: status() == 'end2'">
+      Fortasse melius facere potuisti, sed non male fecisti. Non nulli
+      mortem tuam gauderent, sed omnes pericula levia habemus...
+    </p>
+
+    <p data-bind="visible: status() == 'end3'">
+      Optime laboravisti! Ne Carolus Magnus et Disraeli et Ieffersonius
+      coniuncti quidem melius facere potuissent!
+    </p>
+
+    <div data-bind="visible: status() != 'ingame'">
+      <button onclick="Hamurabi.newGame()">Novum ludum</button>
+    </div>
+    <script src="hamurabi.js" type="text/javascript"></script>
+  </body>
+</html>
