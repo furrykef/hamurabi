@@ -2,8 +2,8 @@
 <html>
   <head>
     <title>Hamurabi</title>
-    <link rel="stylesheet" type="text/css" href="hamurabi.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.5.1/nouislider.min.css">
+    <link rel="stylesheet" type="text/css" href="hamurabi.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.5.1/nouislider.min.js"></script>
   </head>
@@ -41,11 +41,13 @@
         <label>Total farmland (adjust to buy or sell)</label><br>
         <myslider params="v: in_acres, max: in_acres_max, step: 1"></myslider><br>
         <span data-bind="text: in_acres()"></span> acres
-        (<span data-bind="text: Hamurabi.plus(acre_sales())"></span> bushels)<br>
+        (<span data-bind="text: Hamurabi.plus(acres_change())"></span> acres;
+        <span data-bind="text: Hamurabi.plus(acre_sales())"></span> bushels)<br>
         <br>
         <label>Food</label><br>
         <myslider params="v: in_food, max: in_food_max, step: 20"></myslider><br>
-        <span data-bind="text: in_food"></span> bushels<br>
+        <span data-bind="text: in_food"></span> bushels
+        (feeds <span data-bind="text: feeds"></span>)<br>
         <br>
         <label>Acres to farm</label><br>
         <myslider params="v: in_farmed, max: in_farmed_max, step: 1"></myslider><br>

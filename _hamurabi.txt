@@ -5,11 +5,6 @@ http://www.moorecad.com/classicbasic/basic/creative/hamurabi.bas
 http://www.basicbook.org/GamesAmusements/hamurabi.kbs [serious errors; see below]
 
 
-Bugs
-----
-Are rats eating more than they should?
-
-
 Errors in hamurabi.kbs
 ----------------------
 In the rat code, "end if" should precede "S=S-E+H", not follow it.

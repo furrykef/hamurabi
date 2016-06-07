@@ -112,8 +112,14 @@ function ViewModel() {
     self.total_harvest = ko.computed(function () {
         return self.harvest_per_acre() * self.farmed();
     });
+    self.acres_change = ko.computed(function () {
+        return self.in_acres() - self.acres();
+    });
     self.acre_sales = ko.computed(function () {
         return (self.acres() - self.in_acres()) * self.acre_price();
+    });
+    self.feeds = ko.computed(function () {
+        return self.in_food() / 20;
     });
     self.in_store = ko.computed(function () {
         return self.store() + self.acre_sales() - self.in_food() - self.in_farmed();

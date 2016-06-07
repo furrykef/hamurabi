@@ -3,6 +3,10 @@ h1 {
     font-variant: small-caps;
 }
 
+h2 {
+    font-size: 14pt;
+}
+
 #content {
     max-width: 50em;
     margin: 0 auto;
