@@ -5,6 +5,11 @@ http://www.moorecad.com/classicbasic/basic/creative/hamurabi.bas
 http://www.basicbook.org/GamesAmusements/hamurabi.kbs [serious errors; see below]
 
 
+To improve
+----------
+The "acres to farm" slider seems unclear to new players. Perhaps it needs a better label. The limit due to population should also be made clear.
+
+
 Errors in hamurabi.kbs
 ----------------------
 In the rat code, "end if" should precede "S=S-E+H", not follow it.

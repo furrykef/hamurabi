@@ -19,7 +19,7 @@
       <li data-bind="visible: starved() > 0"><span data-bind="css: { alert: too_many_starved() }">
         <span data-bind="text: starved"></span> inopia cibi perisse
       </span></li>
-      <li data-bind="visible: plague">Pestem horribilem dimidium populi necavisse</li>
+      <li data-bind="visible: plague">Pestem horribilem dimidiam partem populi necavisse</li>
       <li data-bind="visible: total_harvest() > 0"><span data-bind="text: total_harvest"></span> corbes
           a <span data-bind="text: farmed"></span> agris collectos esse
           (<span data-bind="text: harvest_per_acre"></span> per agrum)</li>
@@ -47,7 +47,7 @@
         <label>Cibus</label><br>
         <myslider params="v: in_food, max: in_food_max, step: 20"></myslider><br>
         <span data-bind="text: in_food"></span> corbes
-        (alit <span data-bind="text: feeds"></span>)<br>
+        (alunt <span data-bind="text: feeds"></span>)<br>
         <br>
         <label>Agri colendi</label><br>
         <myslider params="v: in_farmed, max: in_farmed_max, step: 1"></myslider><br>
@@ -58,7 +58,7 @@
             <span data-bind="text: in_store"></span>
           </span>
         </p>
-        <input type="submit" value="Mos geratur" data-bind="attr: { disabled: in_store() < 0 }">
+        <input type="submit" value="Fiat" data-bind="attr: { disabled: in_store() < 0 }">
       </form>
     </div>
 
@@ -67,7 +67,7 @@
       <span data-bind="text: total_starved()"></span>
       homines inopia cibi mortui sunt
       (<span data-bind="text: avg_starved_pct().toFixed(2)"></span>%
-      per annum). Initio 10 agros per hominem habebamus et postremo
+      per annum). Initio 10 agros per hominem habebamus et in fine
       <span data-bind="text: acres_per_person().toFixed(2)"></span>
       habemus.
     </p>
@@ -84,7 +84,7 @@
 
     <p data-bind="visible: status() == 'end2'">
       Fortasse melius facere potuisti, sed non male fecisti. Non nulli
-      mortem tuam gauderent, sed omnes pericula levia habemus...
+      mortem tuam gauderent, sed omnes leves difficultates habemus...
     </p>
 
     <p data-bind="visible: status() == 'end3'">
