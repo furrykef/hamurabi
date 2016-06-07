@@ -150,11 +150,6 @@ Hamurabi.newGame = function () {
 };
 
 Hamurabi.onSubmit = function () {
-    if (vm.in_store() < 0) {
-        alert("Think again. Your store balance must be positive.");
-        return;
-    }
-
     vm.year(vm.year() + 1);
     vm.store(vm.in_store());                // must be done before adjusting # of acres!
     vm.acres(vm.in_acres());

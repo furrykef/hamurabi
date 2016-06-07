@@ -51,7 +51,7 @@
           <myslider params="v: in_farmed, max: in_farmed_max, step: 1"></myslider>
           <span data-bind="text: in_farmed"></span> acres<br>
           <br>
-          <input type="submit" value="Make it so">
+          <input type="submit" value="Make it so" data-bind="attr: { disabled: in_store() < 0 }">
       </form>
       <p>
         Store:
