@@ -35,7 +35,7 @@
 
     <p>Farmland is trading at <span data-bind="text: acre_price"></span> bushels per acre.</p>
 
-    <div data-bind="visible: status() == 'ingame'">
+    <div data-bind="visible: status() === 'ingame'">
       <h2>Resource allocation for next year</h2>
       <form data-bind="submit: Hamurabi.onSubmit">
         <label>Total farmland (adjust to buy or sell)</label><br>
@@ -62,7 +62,7 @@
       </form>
     </div>
 
-    <p data-bind="visible: status() != 'ingame' && !too_many_starved()">
+    <p data-bind="visible: status() !== 'ingame' && !too_many_starved()">
       In your 10-year term of office,
       <span data-bind="text: total_starved()"></span>
       died of starvation, an average of
@@ -72,30 +72,30 @@
       acres per person.
     </p>
 
-    <p data-bind="visible: status() == 'end0'">
+    <p data-bind="visible: status() === 'end0'">
       Due to your extreme mismanagement, you have not only been
       impeached and thrown out of office, but you have also been
       declared National Fink!
     </p>
 
-    <p data-bind="visible: status() == 'end1'">
+    <p data-bind="visible: status() === 'end1'">
       Your heavy-handed performance smacks of Nero and Ivan IV. The
       people (remaining) find you an unpleasant ruler and, frankly,
       hate your guts!
     </p>
 
-    <p data-bind="visible: status() == 'end2'">
+    <p data-bind="visible: status() === 'end2'">
       Your performance could have been somewhat better, but really
       wasn't too bad at all. Some people would dearly like to see
       you assassinated, but we all have our trivial problems...
     </p>
 
-    <p data-bind="visible: status() == 'end3'">
+    <p data-bind="visible: status() === 'end3'">
       A fantastic performance! Charlemagne, Disraeli, and Jefferson
       combined could not have done better!
     </p>
 
-    <div data-bind="visible: status() != 'ingame'">
+    <div data-bind="visible: status() !== 'ingame'">
       <button onclick="Hamurabi.newGame()">New game</button>
     </div>
     <script src="hamurabi.js" type="text/javascript"></script>

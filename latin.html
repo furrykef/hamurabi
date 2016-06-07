@@ -35,7 +35,7 @@
 
     <p>Pretium unius agri est <span data-bind="text: acre_price"></span> corbes.</p>
 
-    <div data-bind="visible: status() == 'ingame'">
+    <div data-bind="visible: status() === 'ingame'">
       <h2>Assignatio rerum ad annum qui sequitur</h2>
       <form data-bind="submit: Hamurabi.onSubmit">
         <label>Summa agrorum (muta ut agros emas aut vendas)</label><br>
@@ -62,7 +62,7 @@
       </form>
     </div>
 
-    <p data-bind="visible: status() != 'ingame' && !too_many_starved()">
+    <p data-bind="visible: status() !== 'ingame' && !too_many_starved()">
       Regno tuo 10 annorum,
       <span data-bind="text: total_starved()"></span>
       homines inopia cibi mortui sunt
@@ -72,27 +72,28 @@
       habemus.
     </p>
 
-    <p data-bind="visible: status() == 'end0'">
+    <p data-bind="visible: status() === 'end0'">
       Populus mala administratione defessus non solum te ex officio
       revocavit sed etiam te Asinum Gentis nominavit!
     </p>
 
-    <p data-bind="visible: status() == 'end1'">
+    <p data-bind="visible: status() === 'end1'">
       Durum regnum tuum Neronem vel tzar Ioannem IV sapit. Populus
       (reliquus) te pessimum tyrannum esse arbitratur atque perodit!
     </p>
 
-    <p data-bind="visible: status() == 'end2'">
+    <p data-bind="visible: status() === 'end2'">
       Fortasse melius facere potuisti, sed non male fecisti. Non nulli
-      mortem tuam gauderent, sed omnes leves difficultates habemus...
+      te ad caedem conduci cupiunt, sed omnes leves difficultates
+      habemus...
     </p>
 
-    <p data-bind="visible: status() == 'end3'">
+    <p data-bind="visible: status() === 'end3'">
       Optime laboravisti! Ne Carolus Magnus et Disraeli et Ieffersonius
       coniuncti quidem melius facere potuissent!
     </p>
 
-    <div data-bind="visible: status() != 'ingame'">
+    <div data-bind="visible: status() !== 'ingame'">
       <button onclick="Hamurabi.newGame()">Novum ludum</button>
     </div>
     <script src="hamurabi.js" type="text/javascript"></script>
