@@ -7,7 +7,7 @@ http://www.basicbook.org/GamesAmusements/hamurabi.kbs [serious errors; see below
 
 To improve
 ----------
-The "acres to farm" slider seems unclear to new players. Perhaps it needs a better label. The limit due to population should also be made clear.
+Labor limit due to population should be made clear.
 
 
 Errors in hamurabi.kbs
